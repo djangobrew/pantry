@@ -1,0 +1,102 @@
+{% extends 'ep02/_base.html' %}
+
+{% block content %}
+<div class="content">
+    <h1>Model form vs. model validation example 💯</h1>
+
+    <div class="notification is-success is-light">
+        This example renders the same model form (in two ways) that overrides the model field max character length of 50 for all fields.
+        <br>
+        <br>
+        <strong>Hints:</strong>
+        <ul>
+            <li>Inspect the <code>maxlength</code> attribute of any field from the  <code>as_p()</code> form to confirm the max length was overriden by the form</li>
+            <li>Enter a string length of <code>> 50</code> into any field to <strong>exceed the model character limit</strong> and trigger a <strong>field error</strong>!</li>
+        </ul>
+        <br>
+        
+        <!-- Sample string stuff -->
+        <div x-data="{ range: 50 }">
+            <div class="field">
+                <label class="label">Sample string length: <span x-text="range"></span></label>
+                <div class="control">
+                    <input type="range" x-model="range" min="0" max="100" step="10">
+                </div>
+            </div>
+    
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input class="input" x-text="'a'.repeat(range)" x-bind:value="'a'.repeat(range)">
+                </div>
+                <div class="control">
+                    <button @click="navigator.clipboard.writeText('a'.repeat(range))" class="button is-primary">
+                        <span class="icon is-small">
+                            <i class="fas fa-copy"></i>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    {% if form.errors %}
+    <h3>Rendering <code>form.errors</code></h3>
+    <div class="message is-danger">
+        <div class="message-body">
+            {{ form.errors }}
+        </div>
+    </div>
+    {% endif %}
+
+    <h3>Rendered <code>as_p()</code></h3>
+    <form action="{% url 'ep02:modelform1' %}" method="post" class="box">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+
+    <h3>Rendered manually</h3>
+    <form action="{% url 'ep02:modelform2' %}" method="post" class="box">
+        {% csrf_token %}
+        
+        <div class="field">
+            <label class="label">First Name</label>
+            <div class="control">
+                <input class="input {% if form.first_name.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="first_name" placeholder="Spongebob" required {% if form.errors %}value="{{ form.first_name.value }}"{% endif %}>
+            </div>
+            {% for error in form.first_name.errors %}
+                <p class="help is-danger">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </div>
+
+        <div class="field">
+            <label class="label">Last Name</label>
+            <div class="control">
+                <input class="input {% if form.last_name.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="last_name" placeholder="Squarepants" required {% if form.errors %}value="{{ form.last_name.value }}"{% endif %}>
+            </div>
+            {% for error in form.last_name.errors %}
+                <p class="help is-danger">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </div>
+
+        <div class="field">
+            <label class="label">Job</label>
+            <div class="control">
+                <input class="input {% if form.job.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="job" placeholder="fry cook" required {% if form.errors %}value="{{ form.job.value }}"{% endif %}>
+            </div>
+            {% for error in form.job.errors %}
+                <p class="help is-danger">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </div>
+        
+        <input class="button" type="submit" value="Submit">
+    </form>
+</div>
+{% endblock %}

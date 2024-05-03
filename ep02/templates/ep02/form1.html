@@ -1,0 +1,50 @@
+{% extends 'ep02/_base.html' %}
+
+{% block content %}
+<div class="content">
+    <h1>Basic form example! 📝</h1>
+
+    <div class="notification is-success is-light">
+        This example renders the same form in <strong>two</strong> ways!
+        <br>
+        <br>
+        <strong>Hint:</strong> Enter <code>badcolor</code> to trigger a <strong>field error</strong>!
+    </div>
+
+    {% if form.errors %}
+    <h3>Rendering <code>form.errors</code></h3>
+    <div class="message is-danger">
+        <div class="message-body">
+            {{ form.errors }}
+        </div>
+    </div>
+    {% endif %}
+
+    <h3>Rendered <code>as_p()</code></h3>
+    <form action="{% url 'ep02:form1' %}" method="post" class="box">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+    </form>
+
+    <h3>Rendered manually</h3>
+    <form action="{% url 'ep02:form1' %}" method="post" class="box">
+        {% csrf_token %}
+        
+        <div class="field">
+            <label class="label">Favorite color</label>
+            <div class="control">
+                <input class="input {% if form.errors %}is-danger{% endif %}" type="text" name="favorite_color" placeholder="magenta" required {% if form.errors %}value="{{ form.favorite_color.value }}"{% endif %}>
+            </div>
+
+            {% for error in form.favorite_color.errors %}
+                <p class="help is-danger">
+                    {{ error }}
+                </p>
+            {% endfor %}
+        </div>
+        
+        <input class="button" type="submit" value="Submit">
+    </form>
+</div>
+{% endblock %}

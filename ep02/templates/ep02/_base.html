@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django Brew Episode 2 Examples</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <!-- Main container -->
+            <nav class="level">
+                <!-- Left side -->
+                <div class="level-left">
+                    <div class="level-item">
+                        <figure class="image is-128x128">
+                            <img class="is-rounded" src="https://cdn.fosstodon.org/accounts/avatars/112/057/295/238/313/342/original/871764265a66ca92.png" />
+                        </figure> 
+                    </div>
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="title is-1">Django Brew</p>
+                            <p class="subtitle is-3">episode 2 examples</p>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Right side -->
+                <div class="level-right">
+                    
+                    <p class="level-item">
+                        <div class="dropdown is-hoverable">
+                            <div class="dropdown-trigger">
+                              <span aria-haspopup="true" aria-controls="dropdown-menu4">
+                                <span>All examples</span>
+                                <span class="icon is-small">
+                                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </span>
+                            </div>
+                            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+                              <div class="dropdown-content">
+                                <div class="dropdown-item">
+                                    <a href="{% url 'ep02:form1' %}">
+                                      basic form example
+                                    </a>
+                                </div>
+                                <div class="dropdown-item">
+                                    <a href="{% url 'ep02:modelform1' %}">
+                                      model form example
+                                    </a>
+                                </div>
+                                <div class="dropdown-item">
+                                    <a href="{% url 'ep02:modelform2' %}">
+                                      model form validation example
+                                    </a>
+                                </div>
+                                <div class="dropdown-item">
+                                    <a href="{% url 'ep02:widgettweaks1' %}">
+                                      django-widget-tweaks example
+                                    </a>
+                                </div>
+                                <div class="dropdown-item">
+                                    <a href="{% url 'ep02:crispyforms1' %}">
+                                      django-crispy-forms example
+                                    </a>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </p>
+                    
+                    <p class="level-item">
+                        <a class="button is-success is-light" href="https://djangobrew.com" target="_blank">
+                            <span>Listen</span> 
+                            <span class="icon is-small">
+                                <i class="fas fa-headphones"></i>
+                            </span>
+                        </a>
+                    </p>
+
+                    <p class="level-item">
+                        
+                    </p>
+
+                    <p class="level-item">
+                        <div class="field has-addons" style="margin-bottom: unset;">
+                            <p class="control">
+                                <a class="button is-link is-light" href="https://fosstodon.org/@djangobrew" target="_blank">
+                                    <span class="icon is-small">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mastodon" viewBox="0 0 16 16">
+                                            <path d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a4 4 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522q0-1.288.66-2.046c.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764q.662.757.661 2.046z"/>
+                                        </svg>
+                                    </span>
+                                </a>
+                            </p>
+                            <p class="control">
+                                <a class="button is-dark" href="https://twitter.com/djangobrew" target="_blank">
+                                    <span class="icon is-small">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+                                            <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+                                        </svg>
+                                    </span>
+                                </a>
+                            </p>
+                        </div>
+                    </p>
+
+                    <p class="level-item">
+                        <a class="button" href="https://github.com/djangobrew" target="_blank">
+                            <span class="icon is-small">
+                                <i class="fab fa-github"></i>
+                            </span>
+                            <span>GitHub</span>
+                        </a>
+                    </p>
+                </div>
+            </nav>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </section>
+
+    {% block javascript %}
+    {% endblock %}
+</body>
+</html>
