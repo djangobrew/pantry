@@ -1,0 +1,33 @@
+<form hx-post="{% url 'ep02:htmx2-post' %}" hx-swap="beforeend" class="box" hx-on::after-request="if (event.detail.successful) this.reset()" hx-select-oob="#comment-form">
+    {% csrf_token %}
+
+    <div class="field">
+        <label class="label">Comment</label>
+
+        <div class="control">
+            <input class="input {% if form.comment.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="comment" placeholder="Coffee is good" required {% if form.errors %}value="{{ form.comment.value }}"{% endif %}>
+        </div>
+
+        {% for error in form.comment.errors %}
+        <p class="help is-danger">
+            {{ error }}
+        </p>
+        {% endfor %}
+    </div>
+
+    <div class="field">
+        <label class="label">Author</label>
+
+        <div class="control">
+            <input class="input {% if form.author.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="author" placeholder="Sangeeta" required {% if form.errors %}value="{{ form.author.value }}"{% endif %}>
+        </div>
+
+        {% for error in form.author.errors %}
+        <p class="help is-danger">
+            {{ error }}
+        </p>
+        {% endfor %}
+    </div>
+
+    <input class="button" type="submit" value="Submit">
+</form>

@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="card-content">
+      <div class="content">
+        <p class="title is-4">{{ comment.comment }}</p>
+        <p class="subtitle">by {{ comment.author }}</p>
+      </div>
+    </div>
+</div>
+
+
+{% if request.htmx %}
+<div id="comment-form">
+  {% include 'ep02/partials/htmx2-form.html' %}
+</div>
+{% endif %}

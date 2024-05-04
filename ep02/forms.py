@@ -17,7 +17,7 @@ class BasicForm(forms.Form):
     def clean_favorite_color(self):
         color = self.cleaned_data.get('favorite_color')
 
-        if color == 'badcolor':
+        if color == 'bad':
             raise forms.ValidationError("Oopsie! That's a bad color!")
         
         return color
@@ -118,7 +118,7 @@ class BasicForm2(forms.Form):
     def clean_favorite_color(self):
         color = self.cleaned_data.get('favorite_color')
 
-        if 'bad' in color:
+        if color == 'bad':
             raise forms.ValidationError("Oopsie! That's a bad color!")
         
         return color
@@ -134,7 +134,7 @@ class BasicForm2(forms.Form):
     def clean_nickname(self):
         nickname = self.cleaned_data.get('nickname')
 
-        if 'bad' in nickname:
+        if nickname == 'bad':
             raise forms.ValidationError("Oh no! That's a bad nickname...")
         
         return nickname
@@ -142,7 +142,7 @@ class BasicForm2(forms.Form):
     def clean_bio(self):
         bio = self.cleaned_data.get('bio')
 
-        if 'bad' in bio:
+        if bio == 'bad':
             raise forms.ValidationError("Yikes! Invalid bio!")
         
         return bio
@@ -178,3 +178,24 @@ class BasicForm3(BasicForm2):
             Field('bio', placeholder='Hiya!'),
             Submit('submit', 'Submit!!')
         )
+
+
+class CommentForm(forms.Form):
+    comment = forms.CharField(max_length=50,)
+    author = forms.CharField(max_length=20,)
+
+    def clean_comment(self):
+        comment = self.cleaned_data.get('comment')
+
+        if comment == 'bad':
+            raise forms.ValidationError("Whoops! That's a bad comment!")
+        
+        return comment
+
+    def clean_author(self):
+        author = self.cleaned_data.get('author')
+
+        if author == 'bad':
+            raise forms.ValidationError("Nope! Bad author alert!")
+        
+        return author

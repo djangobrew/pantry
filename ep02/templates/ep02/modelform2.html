@@ -50,7 +50,7 @@
     {% endif %}
 
     <h3>Rendered <code>as_p()</code></h3>
-    <form action="{% url 'ep02:modelform1' %}" method="post" class="box">
+    <form action="{% url 'ep02:modelform2' %}" method="post" class="box">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Submit">

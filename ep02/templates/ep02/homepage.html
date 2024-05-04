@@ -1,0 +1,69 @@
+{% extends 'ep02/_base.html' %}
+
+{% block content %}
+
+<div class="content">
+    <h1>Hello, Djangorista!</h1>
+
+    <p>
+      We've gathered some code examples to demonstrate aspects of Django forms
+      we discussed in Episode 2 of the Django Brew Podcast!
+    </p>
+
+    <table class="table is-fullwidth">
+        <thead>
+          <tr>
+            <th>Example</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+                <a href="{% url 'ep02:form1' %}" target="_blank">Basic form example</a>
+            </td>
+            <td>
+                Demonstrates form rendering (with <code>as_p()</code> and manually), and form error rendering with a generic Django form
+            </td>
+          </tr>
+          <tr>
+            <td>
+                <a href="{% url 'ep02:modelform1' %}">Model form example</a>
+            </td>
+            <td>Demonstrates form rendering, form error rendering, and non-field errors with a Django model form</td>
+          </tr>
+          <tr>
+            <td>
+                <a href="{% url 'ep02:modelform2' %}">Model form validation example</a>
+            </td>
+            <td>Demonstrates Django model form validation with a model form that overrides the underlying model's <code>max_length</code> restrictions for all fields</td>
+          </tr>
+          <tr>
+            <td>
+                <a href="{% url 'ep02:widgettweaks1' %}">django-widget-tweaks example</a>
+            </td>
+            <td>Demonstrates form rendering with <a href="https://github.com/jazzband/django-widget-tweaks" target="_blank">django-widget-tweaks</a> on a generic Django form</td> 
+          </tr>
+          <tr>
+            <td>
+                <a href="{% url 'ep02:crispyforms1' %}">django-crispy-forms example</a>
+            </td>
+            <td>Demonstrates form rendering with <a href="https://github.com/django-crispy-forms/django-crispy-forms" target="_blank">django-crisy-forms</a> on a generic Django form</td>
+          </tr>
+          <tr>
+            <td>
+                <a href="{% url 'ep02:htmx1' %}">HTMX form example</a>
+            </td>
+            <td>Demonstrates an AJAX form with <a href="https://htmx.org/" target="_blank">HTMX</a> and partial templates via a generic Django form</td>
+          </tr>
+          <tr>
+            <td>
+                <a href="{% url 'ep02:htmx2' %}">HTMX comment form example</a>
+            </td>
+            <td>Demonstrates an AJAX comment form with <a href="https://htmx.org/" target="_blank">HTMX</a> and partial templates via a generic Django form</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+{% endblock content %}

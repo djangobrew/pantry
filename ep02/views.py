@@ -1,13 +1,22 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
+from django_htmx.http import retarget, reswap
+
 from ep02.forms import (
     BasicForm,
     BasicForm2,
     BasicForm3,
+    CommentForm,
     EmployeeForm,
     EmployeeForm2,
 )
+
+
+def homepage(request):
+    return render(
+        request, 'ep02/homepage.html', {}
+    )
 
 
 def form1(request):
@@ -92,6 +101,60 @@ def crispyforms1(request):
         return render(
             request, "ep02/crispyforms1.html", {'form': form}
         )
+
+
+def htmx1(request):
+    return render(
+        request, "ep02/htmx1.html", {'form': BasicForm()}
+    )
+
+
+def htmx1_post(request):
+    if request.method == 'POST':
+        form = BasicForm(request.POST)
+
+        if form.is_valid():
+            return render(request, 'ep02/partials/htmx1-success.html', {})
+
+        return render(
+            request, "ep02/partials/htmx1-form.html", {'form': form}
+        )
+
+
+def htmx2(request):
+    initial_comment = {'comment': 'I ❤️ ghost pepper', 'author': 'Adam'}
+
+    return render(
+        request,
+        "ep02/htmx2.html",
+        {'form': CommentForm(), 'comments': [initial_comment]}
+    )
+
+
+def htmx2_post(request):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            response = render(
+                request,
+                "ep02/partials/htmx2-comment.html",
+                {'comment': form.cleaned_data}
+            )
+            retarget(response, '#comments')
+
+            return response
+
+        # if form not valid
+        response = render(
+            request,
+            "ep02/partials/htmx2-form.html",
+            {'form': form,}
+        )
+        retarget(response, '#comment-form')
+        reswap(response, 'innerHTML')
+
+        return response
 
 
 def form_success(request):

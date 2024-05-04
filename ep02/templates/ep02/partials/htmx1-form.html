@@ -1,0 +1,18 @@
+<form hx-post="{% url 'ep02:htmx1-post' %}" hx-target="#message" class="box">
+    {% csrf_token %}
+    
+    <div class="field">
+        <label class="label">Favorite color</label>
+        <div class="control">
+            <input class="input {% if form.favorite_color.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="favorite_color" placeholder="magenta" required {% if form.errors %}value="{{ form.favorite_color.value }}"{% endif %}>
+        </div>
+
+        {% for error in form.favorite_color.errors %}
+            <p class="help is-danger">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </div>
+
+    <input class="button" type="submit" value="Submit">
+</form>

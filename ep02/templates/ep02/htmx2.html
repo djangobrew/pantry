@@ -1,0 +1,33 @@
+{% extends 'ep02/_base.html' %}
+
+{% block content %}
+
+<div class="content">
+    <h1>HTMX comment form example 🗳️</h1>
+
+    <div class="notification is-success is-light">
+        This example demonstrates an AJAX comment form implemented via <a href="https://htmx.org/" target="_blank">HTMX</a> and rendered with partial templates.
+        <br>
+        <br>
+        <strong>Hints:</strong>
+        <ul>
+            <li>Enter <code>bad</code> in any field to trigger a <strong>field error</strong>!</li>
+            <li>The form below is rendered via a partial template</li>
+            <li>If the form is invalid, the same partial template is rendered with the form and errors</li>
+            <li>If the form is valid, a partial template for the new comment is rendered along with a fresh form</li>
+        </ul>
+    </div>
+
+    <div id="comments">
+        {% for comment in comments %}
+            {% include 'ep02/partials/htmx2-comment.html' with comment=comment %}
+        {% endfor %}
+        
+    </div>
+
+    <div id="comment-form">
+        {% include 'ep02/partials/htmx2-form.html' %}
+    </div>
+
+</div>
+{% endblock %}
