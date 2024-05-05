@@ -181,6 +181,10 @@ class BasicForm3(BasicForm2):
 
 
 class CommentForm(forms.Form):
+    """
+    A basic form to capture a comment.    
+    """
+
     comment = forms.CharField(max_length=50,)
     author = forms.CharField(max_length=20,)
 

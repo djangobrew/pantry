@@ -13,9 +13,9 @@ from ep02.forms import (
 )
 
 
-def homepage(request):
+def home(request):
     return render(
-        request, 'ep02/homepage.html', {}
+        request, 'ep02/home.html', {}
     )
 
 
