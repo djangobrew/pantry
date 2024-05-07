@@ -22,5 +22,28 @@
         {% include 'ep02/partials/htmx1-form.html' %}
     </div>
 
+    <details class="code-snippet is-clickable mt-4">
+        <summary>
+            <span class="icon-text">
+                <span>show code</span>
+                <span class="icon">
+                <i class="fa fa-code"></i>
+                </span>
+            </span>
+        </summary>
+
+        <p class="is-size-6 mt-6">Rendering initial form from partial template. Notice the <code>id="message"</code> which will be used as a target for rendering responses</p>
+        <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fhtmx1.html%23L21-L23&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+
+        <p class="is-size-6 mt-6">Form partial template: Uses multiple <code>hx-</code> attributes for posting and specifying target response element</p>
+        <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fpartials%2Fhtmx1-form.html%23L1-L18&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+
+        <p class="is-size-6 mt-6">Django view code: Two separate views, one for rendering the page and another for processing the form and returning partial template responses</p>
+        <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Fviews.py%23L106-L121&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+
+        <p class="is-size-6 mt-6">Success partial template</p>
+        <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fpartials%2Fhtmx1-success.html%23L1-L5&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+    </details>
+
 </div>
 {% endblock %}

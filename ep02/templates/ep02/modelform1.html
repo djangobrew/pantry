@@ -15,63 +15,77 @@
         </ul>
     </div>
 
-    {% if form.errors %}
-    <h3>Rendering <code>form.errors</code></h3>
-    <div class="message is-danger">
-        <div class="message-body">
-            {{ form.errors }}
+    <div class="example-spacer">
+        {% if form.errors %}
+        <h3>Rendering <code>form.errors</code></h3>
+        <div class="message is-danger">
+            <div class="message-body">
+                {{ form.errors }}
+            </div>
         </div>
+        {% endif %}
+
+        <!-- separate if statement here so code snippet partial template doesn't show up in the code snippet preview! -->
+        {% if form.errors %}
+        {% include "djangobrew/partials/code_snippet.html" with code_snippet_link="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fmodelform1.html%23L18-L25&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on" %}
+        {% endif %}
     </div>
-    {% endif %}
 
-    <h3>Rendered <code>as_p()</code></h3>
-    <form action="{% url 'ep02:modelform1' %}" method="post" class="box">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit">
-    </form>
+    <div class="example-spacer">
+        <h3>Rendered <code>as_p()</code></h3>
+        <form action="{% url 'ep02:modelform1' %}" method="post" class="box">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+        {% include "djangobrew/partials/code_snippet.html" with code_snippet_link="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fmodelform1.html%23L28-L32&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on" %}
+    </div>
 
-    <h3>Rendered manually</h3>
-    <form action="{% url 'ep02:modelform1' %}" method="post" class="box">
-        {% csrf_token %}
-        
-        <div class="field">
-            <label class="label">First Name</label>
-            <div class="control">
-                <input class="input {% if form.first_name.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="first_name" placeholder="Spongebob" required {% if form.errors %}value="{{ form.first_name.value }}"{% endif %}>
+    <div class="example-spacer">
+        <h3>Rendered manually</h3>
+        <form action="{% url 'ep02:modelform1' %}" method="post" class="box">
+            {% csrf_token %}
+            
+            <div class="field">
+                <label class="label">First Name</label>
+                <div class="control">
+                    <input class="input {% if form.first_name.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="first_name" placeholder="Spongebob" required {% if form.errors %}value="{{ form.first_name.value }}"{% endif %}>
+                </div>
+                {% for error in form.first_name.errors %}
+                    <p class="help is-danger">
+                        {{ error }}
+                    </p>
+                {% endfor %}
             </div>
-            {% for error in form.first_name.errors %}
-                <p class="help is-danger">
-                    {{ error }}
-                </p>
-            {% endfor %}
-        </div>
-
-        <div class="field">
-            <label class="label">Last Name</label>
-            <div class="control">
-                <input class="input {% if form.last_name.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="last_name" placeholder="Squarepants" required {% if form.errors %}value="{{ form.last_name.value }}"{% endif %}>
+    
+            <div class="field">
+                <label class="label">Last Name</label>
+                <div class="control">
+                    <input class="input {% if form.last_name.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="last_name" placeholder="Squarepants" required {% if form.errors %}value="{{ form.last_name.value }}"{% endif %}>
+                </div>
+                {% for error in form.last_name.errors %}
+                    <p class="help is-danger">
+                        {{ error }}
+                    </p>
+                {% endfor %}
             </div>
-            {% for error in form.last_name.errors %}
-                <p class="help is-danger">
-                    {{ error }}
-                </p>
-            {% endfor %}
-        </div>
-
-        <div class="field">
-            <label class="label">Job</label>
-            <div class="control">
-                <input class="input {% if form.job.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="job" placeholder="fry cook" required {% if form.errors %}value="{{ form.job.value }}"{% endif %}>
+    
+            <div class="field">
+                <label class="label">Job</label>
+                <div class="control">
+                    <input class="input {% if form.job.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="job" placeholder="fry cook" required {% if form.errors %}value="{{ form.job.value }}"{% endif %}>
+                </div>
+                {% for error in form.job.errors %}
+                    <p class="help is-danger">
+                        {{ error }}
+                    </p>
+                {% endfor %}
             </div>
-            {% for error in form.job.errors %}
-                <p class="help is-danger">
-                    {{ error }}
-                </p>
-            {% endfor %}
-        </div>
-        
-        <input class="button" type="submit" value="Submit">
-    </form>
+
+            <input class="button" type="submit" value="Submit">
+        </form>
+        {% include "djangobrew/partials/code_snippet.html" with code_snippet_link="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fmodelform1.html%23L35-L75&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on" %}
+    </div>
+
 </div>
 {% endblock %}

@@ -1,0 +1,71 @@
+/* Homepage */
+
+#logo {
+    width: 600px;
+}
+
+#footer-logo {
+    width: 180px;
+    margin-bottom: 10px;
+}
+
+.view-examples-btn {
+    margin-left: 1.5rem;
+}
+
+#main-hero {
+    /* background-color: #10b981; */
+    background-color: white;
+}
+
+.light-episode-section {
+    background-color: #f0fdf4;
+}
+
+.dark-episode-section {
+    background-color: #d1fae5;
+}
+
+.footer-padding {
+    padding: 3rem 1.5rem 3rem !important;
+}
+
+
+/* Episode pages */
+
+.example-spacer {
+    margin-top: 70px;
+}
+
+details.code-snippet {
+    color: #858585;
+}
+
+details.code-snippet .icon-text {
+    font-weight: 900;
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* Mobile styles */
+
+@media screen and (max-width: 768px) {
+    .view-examples-btn {
+        margin: 0;
+    }
+
+    #logo {
+        width: 400px;
+    }
+
+    #breadcrumbs {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+}

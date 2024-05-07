@@ -23,7 +23,7 @@ def normalize_url_name(url_name):
     return url_name.replace('-', ' ').replace('_', ' ').title()
 
 
-@register.inclusion_tag('partials/breadcrumbs.html', takes_context=True)
+@register.inclusion_tag('djangobrew/partials/breadcrumbs.html', takes_context=True)
 def get_breadcrumbs(context):
     request = context.get('request')
     match = resolve(request.path)
@@ -66,4 +66,13 @@ def get_breadcrumbs(context):
 
     # Add project homepage breadcrumb
     breadcrumbs.insert(0, Breadcrumb(name='Home', url_pattern='root'))
+
     return {'breadcrumbs': breadcrumbs}
+
+
+@register.simple_tag(takes_context=True)
+def get_app_name(context):
+    request = context.get('request')
+    app_name = request.resolver_match.app_name
+
+    return normalize_url_name(app_name)

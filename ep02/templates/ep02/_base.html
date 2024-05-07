@@ -1,3 +1,6 @@
+{% load static %}
+{% load project_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     <section class="section">
@@ -39,7 +43,7 @@
                         <div class="dropdown is-hoverable">
                             <div class="dropdown-trigger">
                               <span aria-haspopup="true" aria-controls="dropdown-menu4">
-                                <span>All examples</span>
+                                <span>{% get_app_name %} examples</span>
                                 <span class="icon is-small">
                                   <i class="fas fa-angle-down" aria-hidden="true"></i>
                                 </span>
@@ -124,7 +128,7 @@
                     </p>
 
                     <p class="level-item">
-                        <a class="button" href="https://github.com/djangobrew" target="_blank">
+                        <a class="button" href="https://github.com/djangobrew/pantry" target="_blank">
                             <span class="icon is-small">
                                 <i class="fab fa-github"></i>
                             </span>
@@ -135,8 +139,6 @@
             </nav>
         </div>
     </section>
-    
-    {% load project_tags %}
 
     <section class="section pt-1 pb-1">
         <div class="container">
@@ -150,6 +152,8 @@
             {% endblock %}
         </div>
     </section>
+
+    {% include 'djangobrew/partials/footer.html' %}
 
     {% block javascript %}
     {% endblock %}

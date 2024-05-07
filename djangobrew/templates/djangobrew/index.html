@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,105 +11,129 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <section class="section">
-        <div class="container">
-            <!-- Main container -->
-            <nav class="level">
-                <!-- Left side -->
-                <div class="level-left">
-                    <div class="level-item">
-                        <a href="{% url 'root' %}">
-                            <figure class="image is-128x128">
-                                <img class="is-rounded" src="https://cdn.fosstodon.org/accounts/avatars/112/057/295/238/313/342/original/871764265a66ca92.png" />
-                            </figure>
-                        </a>
-                    </div>
-                    <div class="level-item has-text-centered">
-                        <a href="{% url 'root' %}">
-                            <p class="title is-1">Django Brew Examples</p>
-                        </a>
-                    </div>
-                </div>
-            
-                <!-- Right side -->
-                <div class="level-right">
 
-                    <p class="level-item">
-                        <a class="button is-success is-light" href="https://djangobrew.com" target="_blank">
-                            <span>Listen</span> 
-                            <span class="icon is-small">
-                                <i class="fas fa-headphones"></i>
+    <section class="section hero is-success" id="main-hero">
+        <div class="container ">
+            <div class="content is-large has-text-centered-mobile flex-center">
+
+                <figure class="image" id="logo">
+                    <img src="{% static 'img/django-brew-logo-full.png' %}" alt="Django Brew">
+                </figure>
+                <h1>✨ Pantry ✨</h1>
+                <p>Where your coffee beans and code examples stay fresh!</p>
+                
+                <div class="buttons are-large">
+                    <a class="button is-success is-light" href="https://djangobrew.com" target="_blank">
+                        <span>Listen</span> 
+                        <span class="icon is-small">
+                            <i class="fas fa-headphones"></i>
+                        </span>
+                    </a>
+
+                    <a class="button" href="https://github.com/djangobrew/pantry" target="_blank">
+                        <span class="icon is-small">
+                            <i class="fab fa-github"></i>
+                        </span>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+
+                <div class="buttons are-large">
+                    <button class="button is-link">
+                        <a href="https://fosstodon.org/@djangobrew" target="_blank">
+                            <span class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-mastodon" viewBox="0 0 16 16">
+                                    <path d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a4 4 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522q0-1.288.66-2.046c.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764q.662.757.661 2.046z"/>
+                                </svg>
                             </span>
                         </a>
-                    </p>
+                    </button>
 
-                    <p class="level-item">
-                        <div class="field is-grouped" style="margin-bottom: unset;">
-                            <p class="control">
-                                <button class="button is-link">
-                                    <a href="https://fosstodon.org/@djangobrew" target="_blank">
-                                        <span class="icon is-small">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-mastodon" viewBox="0 0 16 16">
-                                                <path d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a4 4 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522q0-1.288.66-2.046c.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764q.662.757.661 2.046z"/>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </button>
-                            </p>
-                            <p class="control">
-                                <button class="button is-dark">
-                                    <a href="https://twitter.com/djangobrew" target="_blank">
-                                        <span class="icon is-small">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-twitter-x" viewBox="0 0 16 16">
-                                                <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
-                                            </svg>
-                                        </span>
-                                    </a>
-                                </button>
-                            </p>
-                        </div>
-                    </p>
-
-                    <p class="level-item">
-                        <a class="button" href="https://github.com/djangobrew" target="_blank">
-                            <span class="icon is-small">
-                                <i class="fab fa-github"></i>
+                    <button class="button is-dark">
+                        <a href="https://twitter.com/djangobrew" target="_blank">
+                            <span class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-twitter-x" viewBox="0 0 16 16">
+                                    <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+                                </svg>
                             </span>
-                            <span>GitHub</span>
                         </a>
-                    </p>
+                    </button>
                 </div>
-            </nav>
-        </div>
-    </section>
 
-    <section class="section">
-        <div class="container">
-            <div class="content is-medium">
-
-                <table class="table is-fullwidth">
-                    <thead>
-                      <tr>
-                        <th>Episode</th>
-                        <th>Description</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                            <a href="{% url 'ep02:home' %}" target="_blank">Episode 2</a>
-                        </td>
-                        <td>
-                            All about Django forms!
-                        </td>
-                    </tbody>
-                  </table>
             </div>
-            
+
         </div>
     </section>
 
+    <section class="section hero light-episode-section">
+        <div class="container">
+            <div class="content is-large">
+                <div class="columns is-vcentered is-multiline">
+                    <div class="column is-half has-text-centered-mobile">
+                        <h3 class="subtitle is-3">
+                            Episode 2:
+                        </h3>
+                        <h2 class="title is-2 mt-0">
+                            Sudsy Forms and Spicy Takes 🔥
+                        </h2>
+                    </div>
+                    <div class="column is-half">
+                        <p>
+                            All about Django forms! Examples cover:
+                            <ul>
+                                <li>basic forms</li>
+                                <li>model forms</li>
+                                <li>third-party form rendering libraries</li>
+                                <li>AJAX forms with HTMX</li>
+                            </ul>
+                            <p class="has-text-centered-mobile">
+                                <a href="{% url 'ep02:home' %}" target="_blank" class="button is-success has-text-white is-medium view-examples-btn">
+                                    View examples
+                                </a>
+                            </p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leaving this for next time need to update! -->
+    <!-- <section class="section hero dark-episode-section">
+        <div class="container">
+            <div class="content is-large">
+                <div class="columns is-vcentered is-multiline">
+                    <div class="column is-half has-text-centered-mobile">
+                        <h3 class="subtitle is-3">
+                            Episode 3:
+                        </h3>
+                        <h2 class="title is-2 mt-0">
+                            APIs: REST and Naptimes 💤
+                        </h2>
+                    </div>
+                    <div class="column is-half">
+                        <p>
+                            We talk about APIs, deep dive into:
+                            <ul>
+                                <li>API libraries with Django</li>
+                                <li>REST API best practices</li>
+                                <li>GraphQL vs. REST</li>
+                            </ul>
+                            <p class="has-text-centered-mobile">
+                                <a href="" target="_blank" class="button is-success has-text-white">
+                                    View examples
+                                </a>
+                            </p>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    {% include 'djangobrew/partials/footer.html' %}
 </body>
 </html>
