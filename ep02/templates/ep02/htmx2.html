@@ -1,15 +1,17 @@
 {% extends 'ep02/_base.html' %}
 
-{% block content %}
 
+{% block content %}
 <div class="content">
     <h1 class="has-text-centered-mobile title">HTMX comment form example 🗳️</h1>
 
     <div class="notification is-success is-light">
-        This example demonstrates an AJAX comment form implemented via <a href="https://htmx.org/" target="_blank">HTMX</a> and rendered with partial templates.
+        This example demonstrates an AJAX comment form implemented via <a href="https://htmx.org/"
+            target="_blank">HTMX</a> and rendered with partial templates.
         <br>
         <br>
-        We use the <a href="https://github.com/adamchainz/django-htmx" target="_blank">django-htmx</a> library to easily add HTMX support to our views
+        We use the <a href="https://github.com/adamchainz/django-htmx" target="_blank">django-htmx</a> library to easily
+        add HTMX support to our views
 
         <br>
         <br>
@@ -24,7 +26,7 @@
 
     <div id="comments">
         {% for comment in comments %}
-            {% include 'ep02/partials/htmx2-comment.html' with comment=comment %}
+        {% include 'ep02/partials/htmx2-comment.html' with comment=comment %}
         {% endfor %}
     </div>
 
@@ -37,25 +39,40 @@
             <span class="icon-text">
                 <span>show code</span>
                 <span class="icon">
-                <i class="fa fa-code"></i>
+                    <i class="fa fa-code"></i>
                 </span>
             </span>
         </summary>
 
         <p class="is-size-6 mt-6">Django view that renders page with empty form and initial comments</p>
-        <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Fviews.py%23L124-L131&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+        <script
+            src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Fviews.py%23L124-L131&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on">
+        </script>
 
         <p class="is-size-6 mt-6">Main template that renders two partials: initial comments and the comment form</p>
-        <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fhtmx2.html%23L21-L30&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+        <script
+            src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fhtmx2.html%23L21-L30&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on">
+        </script>
 
-        <p class="is-size-6 mt-6">Comments partial template. Notice the fresh form that gets rendered to <code>#comment-form</code> for an HTMX response, used in tandem with <code>hx-select-oob</code> in the form partial template below</p>
-        <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fpartials%2Fhtmx2-comment.html%23L1-L15&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+        <p class="is-size-6 mt-6">Comments partial template. Notice the fresh form that gets rendered to
+            <code>#comment-form</code> for an HTMX response, used in tandem with <code>hx-select-oob</code> in the form
+            partial template below</p>
+        <script
+            src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fpartials%2Fhtmx2-comment.html%23L1-L15&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on">
+        </script>
 
-        <p class="is-size-6 mt-6">Form partial template. Notice the <code>hx-select-oob</code> attribute that will perform an additional swap to render a fresh form.</p>
-        <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fpartials%2Fhtmx2-form.html%23L1-L33&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+        <p class="is-size-6 mt-6">Form partial template. Notice the <code>hx-select-oob</code> attribute that will
+            perform an additional swap to render a fresh form.</p>
+        <script
+            src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fpartials%2Fhtmx2-form.html%23L1-L33&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on">
+        </script>
 
-        <p class="is-size-6 mt-6">Django view that processes the form. Notice the <code>retarget</code>'s to specify target elements and <code>reswap</code> to change the way the response will be swapped for invalid forms.</p>
-        <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Fviews.py%23L134-L157&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+        <p class="is-size-6 mt-6">Django view that processes the form. Notice the <code>retarget</code>'s to specify
+            target elements and <code>reswap</code> to change the way the response will be swapped for invalid forms.
+        </p>
+        <script
+            src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Fviews.py%23L134-L157&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on">
+        </script>
     </details>
 </div>
-{% endblock %}
+{% endblock content %}
