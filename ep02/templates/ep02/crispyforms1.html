@@ -1,144 +1,270 @@
 {% extends 'ep02/_base.html' %}
+{% load crispy_forms_tags project_tags %}
 
-{% load crispy_forms_tags %}
 
 {% block content %}
-
 <style>
-/* hide crispyforms asterisk class */
-.asterisk {
+  /* hide crispyforms asterisk class */
+  .asterisk {
     display: none;
-}
+  }
 </style>
 
 <div class="content">
-    <h1 class="has-text-centered-mobile title">django-crispy-forms example 🍟</h1>
+  <h1 class="has-text-centered-mobile title">django-crispy-forms example 🍟</h1>
 
-    <div class="notification is-success is-light">
-        This example renders the same model form example in <strong>three</strong>,
-        one of which uses <a href="https://github.com/django-crispy-forms/django-crispy-forms" target="_blank">django-crispy-forms</a>!
-        <br>
-        <br>
-        <strong>Hints:</strong>
-        <ul>
-            <li>Enter <code>bad</code> in any text field or <code>100</code> in the age field to trigger a <strong>field error</strong></li>
-            <li>Enter <code>spongebob</code> as the nickname, and <i>omit</i> the word <code>sponge</code> in the bio to trigger a <strong>non-field error</strong>!</li>
-        </ul>
+  <div class="notification is-success is-light">
+    This example renders the same model form example in <strong>three</strong>,
+    one of which uses <a href="https://github.com/django-crispy-forms/django-crispy-forms"
+      target="_blank">django-crispy-forms</a>!
+    <br>
+    <br>
+    <strong>Hints:</strong>
+    <ul>
+      <li>Enter <code>bad</code> in any text field or <code>100</code> in the age field to trigger a <strong>field
+          error</strong></li>
+      <li>Enter <code>spongebob</code> as the nickname, and <i>omit</i> the word <code>sponge</code> in the bio to
+        trigger a <strong>non-field error</strong>!</li>
+    </ul>
+  </div>
+
+  <div class="example-spacer">
+    {% if form.errors %}
+    <h3>Rendering <code>form.errors</code></h3>
+    <div class="message is-danger">
+      <div class="message-body">
+        {{ form.errors }}
+      </div>
     </div>
+    {% endif %}
 
-    <div class="example-spacer">
-        {% if form.errors %}
-        <h3>Rendering <code>form.errors</code></h3>
-        <div class="message is-danger">
-            <div class="message-body">
-                {{ form.errors }}
-            </div>
+    <!-- separate if statement here so code snippet partial template doesn't show up in the code snippet preview! -->
+    {% if form.errors %}
+    <!-- beautify ignore:start -->
+{% code %}
+{% verbatim %}
+{% if form.errors %}
+<div class="message is-danger">
+  <div class="message-body">
+    {{ form.errors }}
+  </div>
+</div>
+{% endif %}
+{% endverbatim %}
+{% endcode %}
+        <!-- beautify ignore:end -->
+    {% endif %}
+  </div>
+
+  <div class="example-spacer">
+    <h3>Rendered <code>as_p()</code></h3>
+    <form action="{% url 'ep02:crispyforms1' %}" method="post" class="box">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Submit">
+    </form>
+
+    <!-- beautify ignore:start -->
+{% code %}
+{% verbatim %}
+<form action="#" method="post" class="box">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Submit">
+</form>
+{% endverbatim %}
+{% endcode %}
+    <!-- beautify ignore:end -->
+  </div>
+
+  <div class="example-spacer">
+    <h3>Rendered with crispy forms</h3>
+    <form action="{% url 'ep02:crispyforms1' %}" method="post" class="box">
+      {% csrf_token %}
+      <!-- {{ form|crispy }} -->
+      {% crispy form %}
+    </form>
+
+    <p class="is-size-6 mt-6">Template-rendered form</p>
+    <!-- beautify ignore:start -->
+{% code %}
+{% verbatim %}
+<form action="#" method="post" class="box">
+  {% csrf_token %}
+  <!-- {{ form|crispy }} -->
+  {% crispy form %}
+</form>
+{% endverbatim %}
+{% endcode %}
+    <!-- beautify ignore:end -->
+
+    <p class="is-size-6 mt-6">Django form class with crispy form's <code>FormHelper</code> class</p>
+    <!-- beautify ignore:start -->
+{% code language="python" %}
+{% verbatim %}
+Class BasicForm3(BasicForm2):
+    """
+    The same fields as `BasicForm2` except we're adding
+    some crispy-form helpers in the `__init__`!
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # crispy-forms helper!
+        self.helper = FormHelper(self)
+        self.helper.layout = Layout(
+            Field("favorite_color", placeholder="hot pink"),
+            Field("age", placeholder=200),
+            Field("nickname", placeholder="Squidward"),
+            Field("bio", placeholder="Hiya!"),
+            Submit("submit", "Submit!!"),
+        )
+{% endverbatim %}
+{% endcode %}
+    <!-- beautify ignore:end -->
+  </div>
+
+  <div class="example-spacer">
+    <h3>Rendered manually</h3>
+    <form action="{% url 'ep02:crispyforms1' %}" method="post" class="box">
+      {% csrf_token %}
+
+      <div class="field">
+        <label class="label">Favorite color</label>
+        <div class="control">
+          <input class="input {% if form.favorite_color.errors or form.non_field_errors %}is-danger{% endif %}"
+            type="text" name="favorite_color" placeholder="magenta" required
+            {% if form.errors %}value="{{ form.favorite_color.value }}" {% endif %}>
         </div>
-        {% endif %}
 
-        <!-- separate if statement here so code snippet partial template doesn't show up in the code snippet preview! -->
-        {% if form.errors %}
-        {% include "djangobrew/partials/code_snippet.html" with code_snippet_link="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fcrispyforms1.html%23L29-L36&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on" %}
-        {% endif %}
+        {% for error in form.favorite_color.errors %}
+        <p class="help is-danger">
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+
+      <div class="field">
+        <label class="label">Age</label>
+        <div class="control">
+          <input class="input {% if form.age.errors or form.non_field_errors %}is-danger{% endif %}" type="number" min=1
+            max=100 required name="age" placeholder="100" required {% if form.errors %}value="{{ form.age.value }}"
+            {% endif %}>
+        </div>
+
+        {% for error in form.age.errors %}
+        <p class="help is-danger">
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+
+      <div class="field">
+        <label class="label">Nickname</label>
+        <div class="control">
+          <input class="input {% if form.nickname.errors or form.non_field_errors %}is-danger{% endif %}" type="text"
+            required name="nickname" placeholder="Foobar" required {% if form.errors %}value="{{ form.nickname.value }}"
+            {% endif %}>
+        </div>
+
+        {% for error in form.nickname.errors %}
+        <p class="help is-danger">
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+
+      <div class="field">
+        <label class="label">Bio</label>
+        <div class="control">
+          <textarea class="textarea {% if form.bio.errors or form.non_field_errors %}is-danger{% endif %}" type="text"
+            required name="bio" placeholder="Hello world"
+            required>{% if form.errors %}{{ form.bio.value }}{% endif %}</textarea>
+        </div>
+
+        {% for error in form.bio.errors %}
+        <p class="help is-danger">
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+
+      <input class="button" type="submit" value="Submit">
+    </form>
+
+    <!-- beautify ignore:start -->
+{% code %}
+{% verbatim %}
+<form action="#" method="post" class="box">
+  {% csrf_token %}
+
+  <div class="field">
+    <label class="label">Favorite color</label>
+    <div class="control">
+      <input class="input {% if form.favorite_color.errors or form.non_field_errors %}is-danger{% endif %}"
+        type="text" name="favorite_color" placeholder="magenta" required
+        {% if form.errors %}value="{{ form.favorite_color.value }}" {% endif %}>
     </div>
 
-    <div class="example-spacer">
-        <h3>Rendered <code>as_p()</code></h3>
-        <form action="{% url 'ep02:crispyforms1' %}" method="post" class="box">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Submit">
-        </form>
-        {% include "djangobrew/partials/code_snippet.html" with code_snippet_link="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fcrispyforms1.html%23L39-L44&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on" %}
+    {% for error in form.favorite_color.errors %}
+    <p class="help is-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+  </div>
+
+  <div class="field">
+    <label class="label">Age</label>
+    <div class="control">
+      <input class="input {% if form.age.errors or form.non_field_errors %}is-danger{% endif %}" type="number" min=1
+        max=100 required name="age" placeholder="100" required {% if form.errors %}value="{{ form.age.value }}"
+        {% endif %}>
     </div>
 
-    <div class="example-spacer">
-        <h3>Rendered with crispy forms</h3>
-        <form action="{% url 'ep02:crispyforms1' %}" method="post" class="box">
-            {% csrf_token %}
-            <!-- {{ form|crispy }} -->
-            {% crispy form %}
-        </form>
-        
-        <details class="code-snippet is-clickable">
-            <summary>
-                <span class="icon-text">
-                    <span>show code</span>
-                    <span class="icon">
-                    <i class="fa fa-code"></i>
-                    </span>
-                </span>
-            </summary>
+    {% for error in form.age.errors %}
+    <p class="help is-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+  </div>
 
-            <p class="is-size-6 mt-6">Template-rendered form</p>
-            <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fcrispyforms1.html%23L47-L52&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
-
-            <p class="is-size-6 mt-6">Django form class with crispy form's <code>FormHelper</code> class</p>
-            <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Fforms.py%23L163-L180&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
-        </details>
+  <div class="field">
+    <label class="label">Nickname</label>
+    <div class="control">
+      <input class="input {% if form.nickname.errors or form.non_field_errors %}is-danger{% endif %}" type="text"
+        required name="nickname" placeholder="Foobar" required {% if form.errors %}value="{{ form.nickname.value }}"
+        {% endif %}>
     </div>
 
-    <div class="example-spacer">
-        <h3>Rendered manually</h3>
-        <form action="{% url 'ep02:crispyforms1' %}" method="post" class="box">
-            {% csrf_token %}
-            
-            <div class="field">
-                <label class="label">Favorite color</label>
-                <div class="control">
-                    <input class="input {% if form.favorite_color.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="favorite_color" placeholder="magenta" required {% if form.errors %}value="{{ form.favorite_color.value }}"{% endif %}>
-                </div>
+    {% for error in form.nickname.errors %}
+    <p class="help is-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+  </div>
 
-                {% for error in form.favorite_color.errors %}
-                    <p class="help is-danger">
-                        {{ error }}
-                    </p>
-                {% endfor %}
-            </div>
-            
-            <div class="field">
-                <label class="label">Age</label>
-                <div class="control">
-                    <input class="input {% if form.age.errors or form.non_field_errors %}is-danger{% endif %}" type="number" min=1 max=100 required name="age" placeholder="100" required {% if form.errors %}value="{{ form.age.value }}"{% endif %}>
-                </div>
-
-                {% for error in form.age.errors %}
-                    <p class="help is-danger">
-                        {{ error }}
-                    </p>
-                {% endfor %}
-            </div>
-
-            <div class="field">
-                <label class="label">Nickname</label>
-                <div class="control">
-                    <input class="input {% if form.nickname.errors or form.non_field_errors %}is-danger{% endif %}" type="text" required name="nickname" placeholder="Foobar" required {% if form.errors %}value="{{ form.nickname.value }}"{% endif %}>
-                </div>
-
-                {% for error in form.nickname.errors %}
-                    <p class="help is-danger">
-                        {{ error }}
-                    </p>
-                {% endfor %}
-            </div>
-
-            <div class="field">
-                <label class="label">Bio</label>
-                <div class="control">
-                    <textarea class="textarea {% if form.bio.errors or form.non_field_errors %}is-danger{% endif %}" type="text" required name="bio" placeholder="Hello world" required>{% if form.errors %}{{ form.bio.value }}{% endif %}</textarea>
-                </div>
-
-                {% for error in form.bio.errors %}
-                    <p class="help is-danger">
-                        {{ error }}
-                    </p>
-                {% endfor %}
-            </div>
-
-            <input class="button" type="submit" value="Submit">
-        </form>
-        {% include "djangobrew/partials/code_snippet.html" with code_snippet_link="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fcrispyforms1.html%23L55-L112&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on" %}
+  <div class="field">
+    <label class="label">Bio</label>
+    <div class="control">
+      <textarea class="textarea {% if form.bio.errors or form.non_field_errors %}is-danger{% endif %}" type="text"
+        required name="bio" placeholder="Hello world"
+        required>{% if form.errors %}{{ form.bio.value }}{% endif %}</textarea>
     </div>
+
+    {% for error in form.bio.errors %}
+    <p class="help is-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+  </div>
+
+  <input class="button" type="submit" value="Submit">
+</form>
+{% endverbatim %}
+{% endcode %}
+    <!-- beautify ignore:end -->
+  </div>
 
 </div>
-{% endblock %}
+{% endblock content %}

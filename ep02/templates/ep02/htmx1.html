@@ -1,49 +1,107 @@
 {% extends 'ep02/_base.html' %}
+{% load project_tags %}
+
 
 {% block content %}
-
 <div class="content">
-    <h1 class="has-text-centered-mobile title">HTMX form example ⚡️</h1>
+  <h1 class="has-text-centered-mobile title">HTMX form example ⚡️</h1>
 
-    <div class="notification is-success is-light">
-        This example demonstrates an AJAX form implemented via <a href="https://htmx.org/" target="_blank">HTMX</a> and rendered with partial templates.
-        <br>
-        <br>
-        <strong>Hints:</strong>
-        <ul>
-            <li>Enter <code>bad</code> to trigger a <strong>field error</strong>!</li>
-            <li>The form below is rendered via a partial template</li>
-            <li>If the form is invalid, the same partial template is rendered with the form and errors</li>
-            <li>If the form is valid, a partial template with a success message is rendered</li>
-        </ul>
-    </div>
+  <div class="notification is-success is-light">
+    This example demonstrates an AJAX form implemented via <a href="https://htmx.org/" target="_blank">HTMX</a> and
+    rendered with partial templates.
+    <br>
+    <br>
+    <strong>Hints:</strong>
+    <ul>
+      <li>Enter <code>bad</code> to trigger a <strong>field error</strong>!</li>
+      <li>The form below is rendered via a partial template</li>
+      <li>If the form is invalid, the same partial template is rendered with the form and errors</li>
+      <li>If the form is valid, a partial template with a success message is rendered</li>
+    </ul>
+  </div>
 
-    <div id="message">
-        {% include 'ep02/partials/htmx1-form.html' %}
-    </div>
+  <div id="message">
+    {% include 'ep02/partials/htmx1-form.html' %}
+  </div>
 
-    <details class="code-snippet is-clickable mt-4">
-        <summary>
-            <span class="icon-text">
-                <span>show code</span>
-                <span class="icon">
-                <i class="fa fa-code"></i>
-                </span>
-            </span>
-        </summary>
+  <details class="code-snippet is-clickable">
+    <summary>
+      <span class="icon-text">
+        <span>Show code</span>
+        <span class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-code" width="44" height="44"
+            viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M7 8l-4 4l4 4" />
+            <path d="M17 8l4 4l-4 4" />
+            <path d="M14 4l-4 16" />
+          </svg>
+        </span>
+      </span>
+    </summary>
 
-        <p class="is-size-6 mt-6">Rendering initial form from partial template. Notice the <code>id="message"</code> which will be used as a target for rendering responses</p>
-        <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fhtmx1.html%23L21-L23&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+    <p class="is-size-6 mt-6">Rendering initial form from partial template. Notice the <code>id="message"</code>
+      which will be used as a target for rendering responses</p>
 
-        <p class="is-size-6 mt-6">Form partial template: Uses multiple <code>hx-</code> attributes for posting and specifying target response element</p>
-        <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fpartials%2Fhtmx1-form.html%23L1-L18&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+    <!-- beautify ignore:start -->
+    <pre style="padding: 0;"><code class="language-django">{% filter force_escape %}{% verbatim %}<div id="message">
+  {% include 'ep02/partials/htmx1-form.html' %}
+</div>{% endverbatim %}{% endfilter %}</code></pre>
+    <!-- beautify ignore:end -->
 
-        <p class="is-size-6 mt-6">Django view code: Two separate views, one for rendering the page and another for processing the form and returning partial template responses</p>
-        <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Fviews.py%23L106-L121&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+    <p class="is-size-6 mt-6">Form partial template: Uses multiple <code>hx-</code> attributes for posting and
+      specifying target response element</p>
 
-        <p class="is-size-6 mt-6">Success partial template</p>
-        <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fpartials%2Fhtmx1-success.html%23L1-L5&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
-    </details>
+    <!-- beautify ignore:start -->
+    <pre style="padding: 0;"><code class="language-django">{% filter force_escape %}{% verbatim %}<form hx-post="#" hx-target="#message" class="box">
+      {% csrf_token %}
+      
+      <div class="field">
+          <label class="label">Favorite color</label>
+          <div class="control">
+              <input class="input {% if form.favorite_color.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="favorite_color" placeholder="magenta" required {% if form.errors %}value="{{ form.favorite_color.value }}"{% endif %}>
+          </div>
+  
+          {% for error in form.favorite_color.errors %}
+              <p class="help is-danger">
+                  {{ error }}
+              </p>
+          {% endfor %}
+      </div>
+  
+      <input class="button" type="submit" value="Submit">
+  </form>{% endverbatim %}{% endfilter %}</code></pre>
+    <!-- beautify ignore:end -->
+
+    <p class="is-size-6 mt-6">Django view code: Two separate views, one for rendering the page and another for
+      processing the form and returning partial template responses</p>
+
+    <!-- beautify ignore:start -->
+    <pre style="padding: 0;"><code class="language-python">{% filter force_escape %}{% verbatim %}def htmx1(request):
+    return render(request, "ep02/htmx1.html", {"form": BasicForm()})
+  
+
+def htmx1_post(request):
+    if request.method == "POST":
+        form = BasicForm(request.POST)
+  
+        if form.is_valid():
+            return render(request, "ep02/partials/htmx1-success.html", {})
+  
+        return render(request, "ep02/partials/htmx1-form.html", {"form": form}){% endverbatim %}{% endfilter %}</code></pre>
+    <!-- beautify ignore:end -->
+
+    <p class="is-size-6 mt-6">Success partial template</p>
+
+    <!-- beautify ignore:start -->
+    <pre style="padding: 0;"><code class="language-django">{% filter force_escape %}{% verbatim %}<div class="box">
+  <p>Yay! All good! 🥳</p>
+
+  <a class="button" href="{% url 'ep02:htmx1' %}">Retake form?</a>
+</div>
+  {% endverbatim %}{% endfilter %}</code></pre></details>
+      <!-- beautify ignore:end -->
 
 </div>
-{% endblock %}
+{% endblock content %}
