@@ -1,4 +1,15 @@
 {% extends 'djangobrew/_base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/highlightjs/github-dark.min.css' %}">
+{% endblock extra_css %}
+
+{% block extra_js %}
+<script defer src="{% static 'js/alpinejs.min.js' %}"></script>
+<script src="{% static 'js/htmx.min.js' %}"></script>
+<script src="{% static 'js/highlight.min.js' %}"></script>
+{% endblock extra_js %}
 
 {% block subtitle %}Sudsy Forms and Spicy Takes 🔥{% endblock subtitle %}
 
@@ -60,3 +71,9 @@
     </div>
 </p>
 {% endblock nav_right %}
+
+{% block javascript %}
+<script>
+    hljs.highlightAll();
+</script>
+{% endblock javascript %}

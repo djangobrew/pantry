@@ -1,188 +1,349 @@
 {% extends 'ep02/_base.html' %}
-{% load widget_tweaks %}
+{% load project_tags widget_tweaks %}
 
 
 {% block content %}
 <div class="content">
-    <h1 class="has-text-centered-mobile title">django-widget-tweaks example 🔧</h1>
+  <h1 class="has-text-centered-mobile title">django-widget-tweaks example 🔧</h1>
 
-    <div class="notification is-success is-light">
-        This example renders the same model form example in <strong>three</strong> ways,
-        one of which uses <a href="https://github.com/jazzband/django-widget-tweaks"
-            target="_blank">django-widget-tweaks</a>!
-        <br>
-        <br>
-        <strong>Hints:</strong>
-        <ul>
-            <li>Enter <code>bad</code> in any text field or <code>100</code> in the age field to trigger a <strong>field
-                    error</strong></li>
-            <li>Enter <code>spongebob</code> as the nickname, and <i>omit</i> the word <code>sponge</code> in the bio to
-                trigger a <strong>non-field error</strong>!</li>
-        </ul>
+  <div class="notification is-success is-light">
+    This example renders the same model form example in <strong>three</strong> ways,
+    one of which uses <a href="https://github.com/jazzband/django-widget-tweaks"
+      target="_blank">django-widget-tweaks</a>!
+    <br>
+    <br>
+    <strong>Hints:</strong>
+    <ul>
+      <li>Enter <code>bad</code> in any text field or <code>100</code> in the age field to trigger a <strong>field
+          error</strong></li>
+      <li>Enter <code>spongebob</code> as the nickname, and <i>omit</i> the word <code>sponge</code> in the bio to
+        trigger a <strong>non-field error</strong>!</li>
+    </ul>
+  </div>
+
+  <div class="example-spacer">
+    {% if form.errors %}
+    <h3>Rendering <code>form.errors</code></h3>
+    <div class="message is-danger">
+      <div class="message-body">
+        {{ form.errors }}
+      </div>
     </div>
+    {% endif %}
 
-    <div class="example-spacer">
-        {% if form.errors %}
-        <h3>Rendering <code>form.errors</code></h3>
-        <div class="message is-danger">
-            <div class="message-body">
-                {{ form.errors }}
-            </div>
+    <!-- separate if statement here so code snippet partial template doesn't show up in the code snippet preview! -->
+    {% if form.errors %}
+    <!-- beautify ignore:start -->
+{% code %}
+{% verbatim %}
+{% if form.errors %}
+<div class="message is-danger">
+  <div class="message-body">
+    {{ form.errors }}
+  </div>
+</div>
+{% endif %}
+{% endverbatim %}
+{% endcode %}
+    <!-- beautify ignore:end -->
+
+    {% endif %}
+  </div>
+
+  <div class="example-spacer">
+    <h3>Rendered <code>as_p()</code></h3>
+    <form action="{% url 'ep02:widgettweaks1' %}" method="post" class="box">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Submit">
+    </form>
+
+    <!-- beautify ignore:start -->
+{% code %}
+{% verbatim %}
+<form action="#" method="post" class="box">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Submit">
+</form>
+{% endverbatim %}
+{% endcode %}
+    <!-- beautify ignore:end -->
+  </div>
+
+  <div class="example-spacer">
+    <h3>Rendered with widget-tweaks</h3>
+    <form action="{% url 'ep02:widgettweaks1' %}" method="post" class="box">
+      {% csrf_token %}
+
+      <div class="field">
+        {{ form.favorite_color|add_label_class:"label" }}
+
+        <div class="control">
+          {{ form.favorite_color|add_class:"input"|append_attr:"placeholder: magenta"|add_error_class:"is-danger" }}
         </div>
-        {% endif %}
 
-        <!-- separate if statement here so code snippet partial template doesn't show up in the code snippet preview! -->
-        {% if form.errors %}
-        {% include "djangobrew/partials/code_snippet.html" with code_snippet_link="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fwidgettweaks1.html%23L26-L33&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on" %}
-        {% endif %}
+        {% for error in form.favorite_color.errors %}
+        <p class="help is-danger">
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+
+      <div class="field">
+        {{ form.age|add_label_class:"label" }}
+
+        <div class="control">
+          {{ form.age|add_class:"input"|append_attr:"placeholder: 100"|add_error_class:"is-danger" }}
+        </div>
+
+        {% for error in form.age.errors %}
+        <p class="help is-danger">
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+
+      <div class="field">
+        {{ form.nickname|add_label_class:"label" }}
+
+        <div class="control">
+          {{ form.nickname|add_class:"input"|append_attr:"placeholder: Foobar"|add_error_class:"is-danger" }}
+        </div>
+
+        {% for error in form.nickname.errors %}
+        <p class="help is-danger">
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+
+      <div class="field">
+        {{ form.bio|add_label_class:"label" }}
+
+        <div class="control">
+          {{ form.bio|add_class:"textarea"|append_attr:"placeholder: Hello world"|add_error_class:"is-danger"|attr:"cols:8"|attr:"rows:8" }}
+        </div>
+
+        {% for error in form.bio.errors %}
+        <p class="help is-danger">
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+
+      <input class="button" type="submit" value="Submit">
+    </form>
+
+    <!-- beautify ignore:start -->
+{% code %}
+{% verbatim %}
+<form action="#" method="post" class="box">
+  {% csrf_token %}
+
+  <div class="field">
+    {{ form.favorite_color|add_label_class:"label" }}
+
+    <div class="control">
+      {{ form.favorite_color|add_class:"input"|append_attr:"placeholder: magenta"|add_error_class:"is-danger" }}
     </div>
 
-    <div class="example-spacer">
-        <h3>Rendered <code>as_p()</code></h3>
-        <form action="{% url 'ep02:widgettweaks1' %}" method="post" class="box">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Submit">
-        </form>
-        {% include "djangobrew/partials/code_snippet.html" with code_snippet_link="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fwidgettweaks1.html%23L36-L41&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on" %}
+    {% for error in form.favorite_color.errors %}
+    <p class="help is-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+  </div>
+
+  <div class="field">
+    {{ form.age|add_label_class:"label" }}
+
+    <div class="control">
+      {{ form.age|add_class:"input"|append_attr:"placeholder: 100"|add_error_class:"is-danger" }}
     </div>
 
-    <div class="example-spacer">
-        <h3>Rendered with widget-tweaks</h3>
-        <form action="{% url 'ep02:widgettweaks1' %}" method="post" class="box">
-            {% csrf_token %}
+    {% for error in form.age.errors %}
+    <p class="help is-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+  </div>
 
-            <div class="field">
-                {{ form.favorite_color|add_label_class:"label" }}
+  <div class="field">
+    {{ form.nickname|add_label_class:"label" }}
 
-                <div class="control">
-                    {{ form.favorite_color|add_class:"input"|append_attr:"placeholder: magenta"|add_error_class:"is-danger" }}
-                </div>
-
-                {% for error in form.favorite_color.errors %}
-                <p class="help is-danger">
-                    {{ error }}
-                </p>
-                {% endfor %}
-            </div>
-
-            <div class="field">
-                {{ form.age|add_label_class:"label" }}
-
-                <div class="control">
-                    {{ form.age|add_class:"input"|append_attr:"placeholder: 100"|add_error_class:"is-danger" }}
-                </div>
-
-                {% for error in form.age.errors %}
-                <p class="help is-danger">
-                    {{ error }}
-                </p>
-                {% endfor %}
-            </div>
-
-            <div class="field">
-                {{ form.nickname|add_label_class:"label" }}
-
-                <div class="control">
-                    {{ form.nickname|add_class:"input"|append_attr:"placeholder: Foobar"|add_error_class:"is-danger" }}
-                </div>
-
-                {% for error in form.nickname.errors %}
-                <p class="help is-danger">
-                    {{ error }}
-                </p>
-                {% endfor %}
-            </div>
-
-            <div class="field">
-                {{ form.bio|add_label_class:"label" }}
-
-                <div class="control">
-                    {{ form.bio|add_class:"textarea"|append_attr:"placeholder: Hello world"|add_error_class:"is-danger"|attr:"cols:8"|attr:"rows:8" }}
-                </div>
-
-                {% for error in form.bio.errors %}
-                <p class="help is-danger">
-                    {{ error }}
-                </p>
-                {% endfor %}
-            </div>
-
-            <input class="button" type="submit" value="Submit">
-        </form>
-        {% include "djangobrew/partials/code_snippet.html" with code_snippet_link="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fwidgettweaks1.html%23L44-L105&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on" %}
+    <div class="control">
+      {{ form.nickname|add_class:"input"|append_attr:"placeholder: Foobar"|add_error_class:"is-danger" }}
     </div>
 
-    <div class="example-spacer">
-        <h3>Rendered manually</h3>
-        <form action="{% url 'ep02:widgettweaks1' %}" method="post" class="box">
-            {% csrf_token %}
+    {% for error in form.nickname.errors %}
+    <p class="help is-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+  </div>
 
-            <div class="field">
-                <label class="label">Favorite color</label>
-                <div class="control">
-                    <input
-                        class="input {% if form.favorite_color.errors or form.non_field_errors %}is-danger{% endif %}"
-                        type="text" name="favorite_color" placeholder="magenta" required
-                        {% if form.errors %}value="{{ form.favorite_color.value }}" {% endif %}>
-                </div>
+  <div class="field">
+    {{ form.bio|add_label_class:"label" }}
 
-                {% for error in form.favorite_color.errors %}
-                <p class="help is-danger">
-                    {{ error }}
-                </p>
-                {% endfor %}
-            </div>
-
-            <div class="field">
-                <label class="label">Age</label>
-                <div class="control">
-                    <input class="input {% if form.age.errors or form.non_field_errors %}is-danger{% endif %}"
-                        type="number" min=1 max=100 required name="age" placeholder="100" required
-                        {% if form.errors %}value="{{ form.age.value }}" {% endif %}>
-                </div>
-
-                {% for error in form.age.errors %}
-                <p class="help is-danger">
-                    {{ error }}
-                </p>
-                {% endfor %}
-            </div>
-
-            <div class="field">
-                <label class="label">Nickname</label>
-                <div class="control">
-                    <input class="input {% if form.nickname.errors or form.non_field_errors %}is-danger{% endif %}"
-                        type="text" required name="nickname" placeholder="Foobar" required
-                        {% if form.errors %}value="{{ form.nickname.value }}" {% endif %}>
-                </div>
-
-                {% for error in form.nickname.errors %}
-                <p class="help is-danger">
-                    {{ error }}
-                </p>
-                {% endfor %}
-            </div>
-
-            <div class="field">
-                <label class="label">Bio</label>
-                <div class="control">
-                    <textarea class="textarea {% if form.bio.errors or form.non_field_errors %}is-danger{% endif %}"
-                        type="text" required name="bio" placeholder="Hello world"
-                        required>{% if form.errors %}{{ form.bio.value }}{% endif %}</textarea>
-                </div>
-
-                {% for error in form.bio.errors %}
-                <p class="help is-danger">
-                    {{ error }}
-                </p>
-                {% endfor %}
-            </div>
-
-            <input class="button" type="submit" value="Submit">
-        </form>
-        {% include "djangobrew/partials/code_snippet.html" with code_snippet_link="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fwidgettweaks1.html%23L108-L165&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on" %}
+    <div class="control">
+      {{ form.bio|add_class:"textarea"|append_attr:"placeholder: Hello world"|add_error_class:"is-danger"|attr:"cols:8"|attr:"rows:8" }}
     </div>
+
+    {% for error in form.bio.errors %}
+    <p class="help is-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+  </div>
+
+  <input class="button" type="submit" value="Submit">
+</form>
+{% endverbatim %}
+{% endcode %}
+    <!-- beautify ignore:end -->
+  </div>
+
+  <div class="example-spacer">
+    <h3>Rendered manually</h3>
+    <form action="{% url 'ep02:widgettweaks1' %}" method="post" class="box">
+      {% csrf_token %}
+
+      <div class="field">
+        <label class="label">Favorite color</label>
+        <div class="control">
+          <input class="input {% if form.favorite_color.errors or form.non_field_errors %}is-danger{% endif %}"
+            type="text" name="favorite_color" placeholder="magenta" required
+            {% if form.errors %}value="{{ form.favorite_color.value }}" {% endif %}>
+        </div>
+
+        {% for error in form.favorite_color.errors %}
+        <p class="help is-danger">
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+
+      <div class="field">
+        <label class="label">Age</label>
+        <div class="control">
+          <input class="input {% if form.age.errors or form.non_field_errors %}is-danger{% endif %}" type="number" min=1
+            max=100 required name="age" placeholder="100" required {% if form.errors %}value="{{ form.age.value }}"
+            {% endif %}>
+        </div>
+
+        {% for error in form.age.errors %}
+        <p class="help is-danger">
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+
+      <div class="field">
+        <label class="label">Nickname</label>
+        <div class="control">
+          <input class="input {% if form.nickname.errors or form.non_field_errors %}is-danger{% endif %}" type="text"
+            required name="nickname" placeholder="Foobar" required {% if form.errors %}value="{{ form.nickname.value }}"
+            {% endif %}>
+        </div>
+
+        {% for error in form.nickname.errors %}
+        <p class="help is-danger">
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+
+      <div class="field">
+        <label class="label">Bio</label>
+        <div class="control">
+          <textarea class="textarea {% if form.bio.errors or form.non_field_errors %}is-danger{% endif %}" type="text"
+            required name="bio" placeholder="Hello world"
+            required>{% if form.errors %}{{ form.bio.value }}{% endif %}</textarea>
+        </div>
+
+        {% for error in form.bio.errors %}
+        <p class="help is-danger">
+          {{ error }}
+        </p>
+        {% endfor %}
+      </div>
+
+      <input class="button" type="submit" value="Submit">
+    </form>
+
+    <!-- beautify ignore:start -->
+{% code %}
+{% verbatim %}
+<form action="#" method="post" class="box">
+  {% csrf_token %}
+
+  <div class="field">
+    <label class="label">Favorite color</label>
+    <div class="control">
+      <input class="input {% if form.favorite_color.errors or form.non_field_errors %}is-danger{% endif %}"
+        type="text" name="favorite_color" placeholder="magenta" required
+        {% if form.errors %}value="{{ form.favorite_color.value }}" {% endif %}>
+    </div>
+
+    {% for error in form.favorite_color.errors %}
+    <p class="help is-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+  </div>
+
+  <div class="field">
+    <label class="label">Age</label>
+    <div class="control">
+      <input class="input {% if form.age.errors or form.non_field_errors %}is-danger{% endif %}" type="number" min=1
+        max=100 required name="age" placeholder="100" required {% if form.errors %}value="{{ form.age.value }}"
+        {% endif %}>
+    </div>
+
+    {% for error in form.age.errors %}
+    <p class="help is-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+  </div>
+
+  <div class="field">
+    <label class="label">Nickname</label>
+    <div class="control">
+      <input class="input {% if form.nickname.errors or form.non_field_errors %}is-danger{% endif %}" type="text"
+        required name="nickname" placeholder="Foobar" required {% if form.errors %}value="{{ form.nickname.value }}"
+        {% endif %}>
+    </div>
+
+    {% for error in form.nickname.errors %}
+    <p class="help is-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+  </div>
+
+  <div class="field">
+    <label class="label">Bio</label>
+    <div class="control">
+      <textarea class="textarea {% if form.bio.errors or form.non_field_errors %}is-danger{% endif %}" type="text"
+        required name="bio" placeholder="Hello world"
+        required>{% if form.errors %}{{ form.bio.value }}{% endif %}</textarea>
+    </div>
+
+    {% for error in form.bio.errors %}
+    <p class="help is-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+  </div>
+
+  <input class="button" type="submit" value="Submit">
+</form>
+{% endverbatim %}
+{% endcode %}
+    <!-- beautify ignore:end -->
+  </div>
 
 </div>
 {% endblock content %}

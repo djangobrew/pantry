@@ -3,76 +3,164 @@
 
 {% block content %}
 <div class="content">
-    <h1 class="has-text-centered-mobile title">HTMX comment form example 🗳️</h1>
+  <h1 class="has-text-centered-mobile title">HTMX comment form example 🗳️</h1>
 
-    <div class="notification is-success is-light">
-        This example demonstrates an AJAX comment form implemented via <a href="https://htmx.org/"
-            target="_blank">HTMX</a> and rendered with partial templates.
-        <br>
-        <br>
-        We use the <a href="https://github.com/adamchainz/django-htmx" target="_blank">django-htmx</a> library to easily
-        add HTMX support to our views
+  <div class="notification is-success is-light">
+    This example demonstrates an AJAX comment form implemented via <a href="https://htmx.org/" target="_blank">HTMX</a>
+    and rendered with partial templates.
+    <br>
+    <br>
+    We use the <a href="https://github.com/adamchainz/django-htmx" target="_blank">django-htmx</a> library to easily
+    add HTMX support to our views
 
-        <br>
-        <br>
-        <strong>Hints:</strong>
-        <ul>
-            <li>Enter <code>bad</code> in any field to trigger a <strong>field error</strong>!</li>
-            <li>The form below is rendered via a partial template</li>
-            <li>If the form is invalid, the same partial template is rendered with the form and errors</li>
-            <li>If the form is valid, a partial template for the new comment is rendered along with a fresh form</li>
-        </ul>
+    <br>
+    <br>
+    <strong>Hints:</strong>
+    <ul>
+      <li>Enter <code>bad</code> in any field to trigger a <strong>field error</strong>!</li>
+      <li>The form below is rendered via a partial template</li>
+      <li>If the form is invalid, the same partial template is rendered with the form and errors</li>
+      <li>If the form is valid, a partial template for the new comment is rendered along with a fresh form</li>
+    </ul>
+  </div>
+
+  <div id="comments">
+    {% for comment in comments %}
+    {% include 'ep02/partials/htmx2-comment.html' with comment=comment %}
+    {% endfor %}
+  </div>
+
+  <div id="comment-form">
+    {% include 'ep02/partials/htmx2-form.html' %}
+  </div>
+
+  <details class="code-snippet is-clickable">
+    <summary>
+      <span class="icon-text">
+        <span>Show code</span>
+        <span class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-code" width="44" height="44"
+            viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M7 8l-4 4l4 4" />
+            <path d="M17 8l4 4l-4 4" />
+            <path d="M14 4l-4 16" />
+          </svg>
+        </span>
+      </span>
+    </summary>
+
+    <p class="is-size-6 mt-6">Django view that renders page with empty form and initial comments</p>
+
+    <!-- beautify ignore:start -->
+    <pre style="padding: 0;"><code class="language-python">{% filter force_escape %}{% verbatim %}def htmx2(request):
+    initial_comment = {"comment": "I ❤️ ghost pepper", "author": "Adam"}
+
+    return render(request, "ep02/htmx2.html", {"form": CommentForm(), "comments": [initial_comment]}){% endverbatim %}{% endfilter %}</code></pre>
+    <!-- beautify ignore:end -->
+
+    <p class="is-size-6 mt-6">Main template that renders two partials: initial comments and the comment form</p>
+
+    <!-- beautify ignore:start -->
+    <pre style="padding: 0;"><code class="language-django">{% filter force_escape %}{% verbatim %}<div id="comments">
+  {% for comment in comments %}
+  {% include 'ep02/partials/htmx2-comment.html' with comment=comment %}
+  {% endfor %}
+</div>
+  
+<div id="comment-form">
+  {% include 'ep02/partials/htmx2-form.html' %}
+</div>{% endverbatim %}{% endfilter %}</code></pre>
+      <!-- beautify ignore:end -->
+
+    <p class="is-size-6 mt-6">Comments partial template. Notice the fresh form that gets rendered to
+      <code>#comment-form</code> for an HTMX response, used in tandem with <code>hx-select-oob</code> in the form
+      partial template below</p>
+
+    <!-- beautify ignore:start -->
+    <pre style="padding: 0;"><code class="language-django">{% filter force_escape %}{% verbatim %}<div class="card">
+  <div class="card-content">
+    <div class="content">
+      <p class="title is-4">{{ comment.comment }}</p>
+      <p class="subtitle">by {{ comment.author }}</p>
+    </div>
+  </div>
+</div>
+
+{% if request.htmx %}
+<div id="comment-form">
+  {% include 'ep02/partials/htmx2-form.html' %}
+</div>
+{% endif %}{% endverbatim %}{% endfilter %}</code></pre>
+    <!-- beautify ignore:end -->
+
+    <p class="is-size-6 mt-6">Form partial template. Notice the <code>hx-select-oob</code> attribute that will
+      perform an additional swap to render a fresh form.</p>
+
+    <!-- beautify ignore:start -->
+    <pre style="padding: 0;"><code class="language-django">{% filter force_escape %}{% verbatim %}<form hx-post="#" hx-swap="beforeend" class="box" hx-on::after-request="if (event.detail.successful) this.reset()" hx-select-oob="#comment-form">
+  {% csrf_token %}
+
+  <div class="field">
+    <label class="label">Comment</label>
+
+    <div class="control">
+        <input class="input {% if form.comment.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="comment" placeholder="Coffee is good" required {% if form.errors %}value="{{ form.comment.value }}"{% endif %}>
     </div>
 
-    <div id="comments">
-        {% for comment in comments %}
-        {% include 'ep02/partials/htmx2-comment.html' with comment=comment %}
-        {% endfor %}
+    {% for error in form.comment.errors %}
+    <p class="help is-danger">
+        {{ error }}
+    </p>
+    {% endfor %}
+  </div>
+
+  <div class="field">
+    <label class="label">Author</label>
+
+    <div class="control">
+      <input class="input {% if form.author.errors or form.non_field_errors %}is-danger{% endif %}" type="text" name="author" placeholder="Sangeeta" required {% if form.errors %}value="{{ form.author.value }}"{% endif %}>
     </div>
 
-    <div id="comment-form">
-        {% include 'ep02/partials/htmx2-form.html' %}
-    </div>
+    {% for error in form.author.errors %}
+    <p class="help is-danger">
+      {{ error }}
+    </p>
+    {% endfor %}
+  </div>
 
-    <details class="code-snippet is-clickable mt-4">
-        <summary>
-            <span class="icon-text">
-                <span>show code</span>
-                <span class="icon">
-                    <i class="fa fa-code"></i>
-                </span>
-            </span>
-        </summary>
+  <input class="button" type="submit" value="Submit">
+</form>{% endverbatim %}{% endfilter %}</code></pre>
+        <!-- beautify ignore:end -->
 
-        <p class="is-size-6 mt-6">Django view that renders page with empty form and initial comments</p>
-        <script
-            src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Fviews.py%23L124-L131&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on">
-        </script>
+    <p class="is-size-6 mt-6">Django view that processes the form. Notice the <code>retarget</code>'s to specify
+      target elements and <code>reswap</code> to change the way the response will be swapped for invalid forms.
+    </p>
 
-        <p class="is-size-6 mt-6">Main template that renders two partials: initial comments and the comment form</p>
-        <script
-            src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fhtmx2.html%23L21-L30&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on">
-        </script>
+    <!-- beautify ignore:start -->
+    <pre style="padding: 0;"><code class="language-python">{% filter force_escape %}{% verbatim %}def htmx2_post(request):
+    if request.method == "POST":
+        form = CommentForm(request.POST)
 
-        <p class="is-size-6 mt-6">Comments partial template. Notice the fresh form that gets rendered to
-            <code>#comment-form</code> for an HTMX response, used in tandem with <code>hx-select-oob</code> in the form
-            partial template below</p>
-        <script
-            src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fpartials%2Fhtmx2-comment.html%23L1-L15&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on">
-        </script>
+        if form.is_valid():
+            response = render(request, "ep02/partials/htmx2-comment.html", {"comment": form.cleaned_data})
+            retarget(response, "#comments")
 
-        <p class="is-size-6 mt-6">Form partial template. Notice the <code>hx-select-oob</code> attribute that will
-            perform an additional swap to render a fresh form.</p>
-        <script
-            src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Ftemplates%2Fep02%2Fpartials%2Fhtmx2-form.html%23L1-L33&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on">
-        </script>
+            return response
 
-        <p class="is-size-6 mt-6">Django view that processes the form. Notice the <code>retarget</code>'s to specify
-            target elements and <code>reswap</code> to change the way the response will be swapped for invalid forms.
-        </p>
-        <script
-            src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Fdjangobrew%2Fpantry%2Fblob%2Fmain%2Fep02%2Fviews.py%23L134-L157&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on">
-        </script>
-    </details>
+        # if form not valid
+        response = render(
+            request,
+            "ep02/partials/htmx2-form.html",
+            {
+                "form": form,
+            },
+        )
+        retarget(response, "#comment-form")
+        reswap(response, "innerHTML")
+
+        return response{% endverbatim %}{% endfilter %}</code></pre></details>
+    <!-- beautify ignore:end -->
 </div>
 {% endblock content %}
