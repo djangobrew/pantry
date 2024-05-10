@@ -85,24 +85,36 @@
       {% crispy form %}
     </form>
 
-    <p class="is-size-6 mt-6">Template-rendered form</p>
-    <!-- beautify ignore:start -->
-{% code %}
-{% verbatim %}
-<form action="#" method="post" class="box">
+    <details class="code-snippet is-clickable">
+      <summary>
+        <span class="icon-text">
+          <span>Show code</span>
+          <span class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-code" width="44" height="44"
+              viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M7 8l-4 4l4 4" />
+              <path d="M17 8l4 4l-4 4" />
+              <path d="M14 4l-4 16" />
+            </svg>
+          </span>
+        </span>
+      </summary>
+
+      <p class="is-size-6 mt-6">Template-rendered form</p>
+      <!-- beautify ignore:start -->
+<pre style="padding: 0;"><code class="language-django">{% filter force_escape %}{% verbatim %}<form action="#" method="post" class="box">
   {% csrf_token %}
   <!-- {{ form|crispy }} -->
   {% crispy form %}
-</form>
-{% endverbatim %}
-{% endcode %}
-    <!-- beautify ignore:end -->
+</form>{% endverbatim %}{% endfilter %}</code></pre>
+        <!-- beautify ignore:end -->
 
-    <p class="is-size-6 mt-6">Django form class with crispy form's <code>FormHelper</code> class</p>
-    <!-- beautify ignore:start -->
-{% code language="python" %}
-{% verbatim %}
-Class BasicForm3(BasicForm2):
+      <p class="is-size-6 mt-6">Django form class with crispy form's <code>FormHelper</code> class</p>
+
+      <!-- beautify ignore:start -->
+<pre style="padding: 0;"><code class="language-python">{% filter force_escape %}{% verbatim %}Class BasicForm3(BasicForm2):
     """
     The same fields as `BasicForm2` except we're adding
     some crispy-form helpers in the `__init__`!
@@ -119,10 +131,8 @@ Class BasicForm3(BasicForm2):
             Field("nickname", placeholder="Squidward"),
             Field("bio", placeholder="Hiya!"),
             Submit("submit", "Submit!!"),
-        )
-{% endverbatim %}
-{% endcode %}
-    <!-- beautify ignore:end -->
+        ){% endverbatim %}{% endfilter %}</code></pre></details>
+      <!-- beautify ignore:end -->
   </div>
 
   <div class="example-spacer">
