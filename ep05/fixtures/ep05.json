@@ -1,0 +1,159 @@
+[
+{
+  "model": "ep05.item",
+  "pk": 1,
+  "fields": {
+    "name": "Pistachio Latte",
+    "price": "5.85",
+    "sku": 7491408984828227
+  }
+},
+{
+  "model": "ep05.item",
+  "pk": 2,
+  "fields": {
+    "name": "Caramel Machiatto",
+    "price": "4.35",
+    "sku": 5046036751198273
+  }
+},
+{
+  "model": "ep05.item",
+  "pk": 3,
+  "fields": {
+    "name": "Espresso",
+    "price": "2.45",
+    "sku": 7454385668369397
+  }
+},
+{
+  "model": "ep05.item",
+  "pk": 4,
+  "fields": {
+    "name": "Capuccino",
+    "price": "3.35",
+    "sku": 8133674045506185
+  }
+},
+{
+  "model": "ep05.item",
+  "pk": 5,
+  "fields": {
+    "name": "Pumpkin Spice Latte",
+    "price": "4.75",
+    "sku": 9138642899277257
+  }
+},
+{
+  "model": "ep05.item",
+  "pk": 6,
+  "fields": {
+    "name": "Flat White",
+    "price": "4.15",
+    "sku": 5716709143499800
+  }
+},
+{
+  "model": "ep05.item",
+  "pk": 7,
+  "fields": {
+    "name": "Sausage Cheddar & Egg Sandwich",
+    "price": "6.75",
+    "sku": 7385143421866832
+  }
+},
+{
+  "model": "ep05.item",
+  "pk": 8,
+  "fields": {
+    "name": "Kale and Mushroom Egg Bites",
+    "price": "6.95",
+    "sku": 5946580396965536
+  }
+},
+{
+  "model": "ep05.item",
+  "pk": 9,
+  "fields": {
+    "name": "Spinach, Feta & Egg White Wrap",
+    "price": "7.15",
+    "sku": 4812427402546651
+  }
+},
+{
+  "model": "ep05.item",
+  "pk": 10,
+  "fields": {
+    "name": "Impossible Breakfast Sandwich",
+    "price": "7.75",
+    "sku": 1682679376608624
+  }
+},
+{
+  "model": "ep05.barista",
+  "pk": 1,
+  "fields": {
+    "name": "Sangeeta",
+    "employee_id": 96195496
+  }
+},
+{
+  "model": "ep05.barista",
+  "pk": 2,
+  "fields": {
+    "name": "Adam",
+    "employee_id": 87778576
+  }
+},
+{
+  "model": "ep05.order",
+  "pk": 1,
+  "fields": {
+    "number": 45915,
+    "datetime": "2025-02-16T23:34:57.784Z",
+    "barista": 1,
+    "items": [
+      2,
+      7
+    ]
+  }
+},
+{
+  "model": "ep05.order",
+  "pk": 2,
+  "fields": {
+    "number": 65644,
+    "datetime": "2025-02-17T01:48:28.472Z",
+    "barista": 2,
+    "items": [
+      1
+    ]
+  }
+},
+{
+  "model": "ep05.order",
+  "pk": 3,
+  "fields": {
+    "number": 18164,
+    "datetime": "2025-02-17T01:54:02.344Z",
+    "barista": 1,
+    "items": [
+      6
+    ]
+  }
+},
+{
+  "model": "ep05.order",
+  "pk": 4,
+  "fields": {
+    "number": 51496,
+    "datetime": "2025-02-17T01:57:46.872Z",
+    "barista": 2,
+    "items": [
+      3,
+      8,
+      10
+    ]
+  }
+}
+]

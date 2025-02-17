@@ -39,11 +39,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "ep02",
+    "ep05",
+
     # third-party
     "widget_tweaks",
     "crispy_forms",
     "crispy_bulma",
     "django_htmx",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
