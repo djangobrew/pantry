@@ -46,10 +46,9 @@ class Order(models.Model):
     )
 
     @property
-    @admin.display
     def total(self) -> Optional[float]:
         _total = Item.objects.filter(orders__number=self.number).aggregate(price=models.Sum('price'))['price']
         return round(_total, 2) if _total else None
 
     def __str__(self) -> str:
-        return f'{self.number} - total ${self.total}'
+        return str(self.number)
