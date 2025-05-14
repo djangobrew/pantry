@@ -4,16 +4,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from ep05.models import Order, Item, Barista
-# from ep05.serializers import OrderSerializer, ItemSerializer, BaristaSerializer
-from ep05.serializers import *
-
-
-# Create your views here.
-@api_view()
-def drf1(request):
-    if request.method == 'POST':
-        return Response({'message': 'Got some data', 'data': request.data})
-    return Response({'message': 'Hello, World'})
+from ep05.drf.serializers import OrderReadSerializer, OrderWriteSerializer
 
 
 class SerializerByMethodMixin:

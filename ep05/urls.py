@@ -1,14 +1,16 @@
-from django.urls import path
+from django.urls import path, include
 
-from ep05 import drf_views, dj_ninja_views
+from ep05.ninja.views import api as ninja_api
+from ep05 import views
 
 
 app_name = 'ep05'
 
 urlpatterns = [
-    path('drf/1/', drf_views.drf1, name='drf1'),
-    path('drf/orders/', drf_views.OrderListCreate.as_view(), name='order-list'),
-    path('drf/orders/<int:number>', drf_views.OrderRetrieveUpdateDestroy.as_view(), name='order2'),
-    path('drf/orders/<int:pk>', drf_views.OrderRetrieveUpdateDestroy.as_view(), name='order'),
-    path('ninja/', dj_ninja_views.api.urls, name='ninja'),
+    path('', views.home, name='home'),
+    path('drf-examples/', views.drf_examples, name='drf-examples'),
+    path('ninja-examples/', views.ninja_examples, name='ninja-examples'),
+    path('vanilla/', include('ep05.vanilla.urls'), name='vanilla'),
+    path('drf/', include('ep05.drf.urls'), name='drf'),
+    path('ninja/', ninja_api.urls, name='ninja'),
 ]

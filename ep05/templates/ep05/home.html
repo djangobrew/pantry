@@ -1,0 +1,37 @@
+{% extends 'ep05/_base.html' %}
+
+
+{% block content %}
+<div class="content">
+  <h1 class="has-text-centered-mobile title">Hello, Djangorista! 👋</h1>
+
+  <p class="is-size-5">
+    Explore all the code examples for <strong>Episode 5: Chocolatey Django REST APIs</strong>!
+  </p>
+
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th>Example</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <a href="{% url 'ep05:drf-examples' %}">DRF examples</a>
+        </td>
+        <td>
+        Demonstrates CRUD API features with the <a href="https://www.django-rest-framework.org/" target="_blank">Django REST Framework</a> library
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <a href="{% url 'ep05:ninja-examples' %}">Django Ninja examples</a>
+        </td>
+        <td>Demonstrates CRUD API features with the <a href="https://django-ninja.dev/" target="_blank">Django Ninja</a> library</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
