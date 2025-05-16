@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "crispy_bulma",
     "django_htmx",
     "rest_framework",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,16 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Crispy forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = ("bulma",)
 CRISPY_TEMPLATE_PACK = "bulma"
+
+# DRF
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# DRF Spectacular
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Django Brew Episode 5',
+    'DESCRIPTION': 'DRF examples',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SCHEMA_PATH_PREFIX': '',
+}

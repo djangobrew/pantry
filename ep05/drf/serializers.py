@@ -6,15 +6,20 @@ from ep05.models import Item, Barista, Order
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ['name', 'price']
-        read_only_fields = ['sku']
+        fields = ['name', 'price', 'sku', 'pk']
+        read_only_fields = ['sku', 'pk']
+    
+    def validate_price(self, value):
+        if value <= 0:
+            raise serializers.ValidationError('Price must be greater than $0.00!')
+        return value
 
 
 class BaristaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Barista
-        fields = ['name']
-        read_only_fields = ['employee_id']
+        fields = ['name', 'employee_id', 'pk']
+        read_only_fields = ['employee_id', 'pk']
 
 
 class OrderReadSerializer(serializers.ModelSerializer):
