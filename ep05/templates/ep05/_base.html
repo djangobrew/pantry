@@ -1,0 +1,52 @@
+{% extends 'djangobrew/_base-episodes.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/highlightjs/github-dark.min.css' %}">
+{% endblock extra_css %}
+
+{% block extra_js %}
+<script src="{% static 'js/highlight.min.js' %}"></script>
+{% endblock extra_js %}
+
+{% block subtitle %}Chocolatey Django REST APIs 🍫{% endblock subtitle %}
+
+{% block nav_right %}
+<p class="level-item">
+    <div class="dropdown is-hoverable">
+        <div class="dropdown-trigger">
+            <span aria-haspopup="true" aria-controls="dropdown-menu4">
+                <span>Examples</span>
+                <span class="icon is-small" style="top: 6px; position: relative;">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-caret-down" width="44"
+                        height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M6 10l6 6l6 -6h-12" />
+                    </svg>
+                </span>
+            </span>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+            <div class="dropdown-content">
+                <div class="dropdown-item">
+                    <a href="{% url 'ep05:drf-swagger-ui' %}">
+                        DRF Swagger
+                    </a>
+                </div>
+                <div class="dropdown-item">
+                    <a href="{% url 'ep05:ninja:openapi-view' %}">
+                        Django Ninja Swagger
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</p>
+{% endblock nav_right %}
+
+{% block javascript %}
+<script>
+    hljs.highlightAll();
+</script>
+{% endblock javascript %}

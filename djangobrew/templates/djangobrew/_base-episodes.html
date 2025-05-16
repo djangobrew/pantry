@@ -24,15 +24,15 @@
                 <!-- Left side -->
                 <div class="level-left">
                     <div class="level-item">
-                        <a href="{% url 'ep02:home' %}">
+                        <a href="{% url 'root' %}">
                             <figure class="image is-128x128">
                                 <img class="is-rounded"
                                     src="https://cdn.fosstodon.org/accounts/avatars/112/057/295/238/313/342/original/871764265a66ca92.png" />
                             </figure>
                         </a>
                     </div>
-                    <div class="level-item has-text-centered">
-                        <a href="{% url 'ep02:home' %}">
+                    <div class="level-item is-justify-content-flex-start">
+                        <a href="{{ request.path }}">
                             <p class="title is-1">Django Brew Pantry</p>
                             <p class="subtitle is-3">
                                 {% block subtitle %}{% endblock subtitle %}

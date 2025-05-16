@@ -1,0 +1,61 @@
+{% extends 'ep05/_base.html' %}
+
+
+{% block content %}
+<div class="content">
+  <h1 class="has-text-centered-mobile title">Hello, Djangorista! 👋</h1>
+
+  <p class="is-size-5">
+    Explore all the code examples for <strong>Episode 5: Chocolatey Django REST APIs</strong>!
+  </p>
+
+  <div class="notification is-link is-light">
+    For our ✨ Django Brew coffee shop ✨ we made the following models:
+    <ul style="margin-bottom: 1em;">
+      <li><strong>Order</strong></li>
+      <li><strong>Item</strong></li>
+      <li><strong>Barista</strong></li>
+    </ul>
+    The following examples expose CRUD endpoints for all models.
+  </div>
+
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th>Example</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>DRF examples</td>
+        <td>
+          <ul style="margin-top: 0;">
+            <li>
+              Demonstrates CRUD API features with the <a href="https://www.django-rest-framework.org/"
+                target="_blank">Django REST Framework</a> library
+            </li>
+            <li>
+              <a href="{% url 'ep05:drf-swagger-ui' %}">DRF Swagger docs</a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>Django Ninja examples</td>
+        <td>
+          <ul style="margin-top: 0;">
+            <li>
+              Demonstrates CRUD API features with the <a href="https://django-ninja.dev/" target="_blank">Django
+                Ninja</a> library
+            </li>
+            <li>
+              <a href="{% url 'ep05:ninja:openapi-view' %}">Django Ninja Swagger docs</a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
