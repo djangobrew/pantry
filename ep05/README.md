@@ -8,4 +8,6 @@
 python manage.py loaddata ep05
 ```
 
-3. Add more stuff here about DRF & Django Ninja!
+3. You're all set! Run the server, and visit the following API docs urls:
+    - DRF: http://localhost:8000/ep05/drf/docs
+    - Django Ninja: http://localhost:8000/ep05/ninja/docs
